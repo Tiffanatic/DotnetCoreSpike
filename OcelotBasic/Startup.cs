@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IdentityServer4.AccessTokenValidation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,6 +29,21 @@ namespace OcelotBasic
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            var authenticationProviderKey = "TestKey";
+
+            Action<IdentityServerAuthenticationOptions> options = o =>
+            {
+                o.Authority = "https://localhost:4001";
+                o.ApiName = "api";
+                o.SupportedTokens = SupportedTokens.Both;
+                o.ApiSecret = "secret";
+            };
+
+            services.AddAuthentication().
+                AddIdentityServerAuthentication(authenticationProviderKey, options);
+
+
             services.AddOcelot();
             
         }
@@ -40,10 +56,11 @@ namespace OcelotBasic
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseOcelot().Wait();

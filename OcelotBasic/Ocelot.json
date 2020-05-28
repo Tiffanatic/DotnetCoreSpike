@@ -22,7 +22,11 @@
         }
       ],
       "UpstreamPathTemplate": "/api/products",
-      "UpstreamHttpMethod": [ "Get", "Post" ]
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "AuthenticationOptions": {
+        "AuthenticationproviderKey": "TestKey",
+        "AllowedScorpes": []
+      }
     }
   ],
   "GlobalConfiguration": {
