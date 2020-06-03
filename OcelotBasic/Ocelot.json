@@ -25,8 +25,20 @@
       "UpstreamHttpMethod": [ "Get", "Post" ],
       "AuthenticationOptions": {
         "AuthenticationproviderKey": "TestKey",
-        "AllowedScorpes": []
+        "AllowedScopes": []
       }
+    },
+    {
+      "DownstreamPathTemplate": "/connect/token",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 4001
+        }
+      ],
+      "UpstreamPathTemplate": "/api/login",
+      "UpstreamHttpMethod": ["Post" ]
     }
   ],
   "GlobalConfiguration": {
